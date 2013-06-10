@@ -21,6 +21,10 @@ class User < ActiveRecord::Base
     order('score DESC')
   end
 
+  def self.page(int)
+    User.by_karma.limit(50).offset((int-1) * 50)
+  end
+
   # def self.old_by_karma
   #   joins(:karma_points).group('users.id').order('SUM(karma_points.value) DESC')
   # end

@@ -7,6 +7,22 @@
     <th>Email</th>
   </tr>
   <% @users.each do |user| %>
-    <%= render 'user_row', :user => user %>
+  <%= render 'user_row', :user => user %>
   <% end %>
 </table>
+
+<div id="pagination">
+  <% if @page != 1 %>
+    <% if @page != 2 %>
+      <p><%= link_to "<< first ", root_path %></p>
+    <% end %>
+  <p><%= link_to "< previous ", root_path(:page => @page - 1) %></p>
+  <% end %>
+  <span><%= @page %></span>
+  <% if @page != @pages %>
+    <% if @page != @pages - 1 %>
+      <p><%= link_to " next > ", root_path(:page => @page + 1) %></p>
+    <% end %>
+  <p><%= link_to " last >>", root_path(:page => @pages) %></p>
+  <% end %>
+</div>
