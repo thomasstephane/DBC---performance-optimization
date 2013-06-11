@@ -13,7 +13,7 @@ describe User do
     it { should validate_presence_of(:email) }
 
     context 'when a user already exists' do
-      before { create(:user) }
+      before { create (:user) }
 
       it { should validate_uniqueness_of(:username).case_insensitive }
       it { should validate_uniqueness_of(:email).case_insensitive }
@@ -22,19 +22,19 @@ describe User do
 
   describe '.by_karma' do
     it 'returns users in order of highest-to-lowest karma' do
-      user_med   = create(:user_with_karma, :total => 500, :points => 2)
-      user_low   = create(:user_with_karma, :total => 200, :points => 2)
-      user_high  = create(:user_with_karma, :total => 800, :points => 2)
+      user_med   = create(:user_with_karma, :score => 500, :points => 2)
+      user_low   = create(:user_with_karma, :score => 200, :points => 2)
+      user_high  = create(:user_with_karma, :score => 800, :points => 2)
 
       User.by_karma.should eq [user_high, user_med, user_low]
     end
   end
 
   describe '#total_karma' do
-    let(:user) { create(:user_with_karma, :total => 500, :points => 2) }
+    let(:user) { create(:user_with_karma, :score => 500, :points => 2) }
 
     it 'returns the total karma for the user' do
-      user.total_karma.should eq 500
+      user.total_karma.should eq(510)
     end
   end
 

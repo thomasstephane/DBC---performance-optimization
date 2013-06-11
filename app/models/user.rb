@@ -17,6 +17,13 @@ class User < ActiveRecord::Base
             :format => {:with => /^[\w+\-.]+@[a-z\d\-.]+\.[a-z]+$/i},
             :uniqueness => {:case_sensitive => false}
 
+  after_initialize :init
+
+  def init
+    self.score  ||= 0
+  end
+
+
   def self.by_karma
     order('score DESC')
   end
